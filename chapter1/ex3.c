@@ -40,10 +40,11 @@ int isPermutation(char *str1, char *str2)
 
 int main()
 {
-    char str1[128], str2[128];
-    
-    scanf("%s", str1);
-    scanf("%s", str2);
+    char *str1, *str2;
+    size_t len = 128;
+
+    getline(&str1, &len, stdin);
+    getline(&str2, &len, stdin);
 
     if(isPermutation(str1, str2))
     {
