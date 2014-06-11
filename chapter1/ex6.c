@@ -24,12 +24,12 @@ void rotate90(int clockwise, int **matrix, int dimension)
         int row;
         for(row = 0; row < dimension; row++)
         {
-            int *ptr1, *ptr2;
-            for(ptr1 = &matrix[row][0], ptr2 = &matrix[row][dimension - 1]; ptr2 >= ptr1; ptr1++, ptr2--)
+            int column1, column2;
+            for(column1 = 0, column2 = dimension -1; column2 >= column1; column1++, column2--)
             {
-                int tmp = *ptr1;
-                *ptr1 = *ptr2;
-                *ptr2 = tmp;
+                int tmp = matrix[row][column1];
+                matrix[row][column1] = matrix[row][column2];
+                matrix[row][column2] = tmp;
             }
         }
     }
@@ -39,12 +39,12 @@ void rotate90(int clockwise, int **matrix, int dimension)
         int column;
         for(column = 0; column < dimension; column++)
         {
-            int *ptr1, *ptr2;
-            for(ptr1 = &matrix[0][column], ptr2 = &matrix[dimension - 1][column]; ptr2 >= ptr1; ptr1+=dimension, ptr2 -=dimension)
+            int row1, row2;
+            for(row1 = 0, row2 = dimension - 1; row2 >= row1; row1++, row2 --)
             {
-                int tmp = *ptr1;
-                *ptr1 = *ptr2;
-                *ptr2 = tmp;
+                int tmp = matrix[row1][column];
+                matrix[row1][column] = matrix[row2][column];
+                matrix[row2][column] = tmp;
             }
         }
     }
@@ -52,7 +52,13 @@ void rotate90(int clockwise, int **matrix, int dimension)
 
 int main()
 {
-    int matrix[3][3];
+    int **matrix = malloc(sizeof(int*) * 3);
+    int index;
+    for(index=0; index < 3; index++)
+    {
+	    matrix[index] = malloc(sizeof(int) * 3);
+    }
+
     int row, column;
     for(row = 0; row < 3; row++)
     {
@@ -93,6 +99,13 @@ int main()
         }
         printf("\n");
     }
+
+    for(index=0; index < 3; index++)
+    {
+	    free(matrix[index]);
+    }
+
+    free(matrix);
 
     return 0;
 }
